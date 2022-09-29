@@ -3,7 +3,7 @@
 #### mongo Shell Quick Reference
 - -> https://www.mongodb.com/docs/v4.4/reference/mongo-shell/
 
-#### Some commands
+#### Useful commands
 - `mongosh` - enter shell
 - `show dbs` - print list of databases
 - `use dbs` - enter database
