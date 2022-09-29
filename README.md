@@ -1,3 +1,5 @@
-# MongoDB-101: Intro
+# MongoDB-101: Setup
 
-https://www.youtube.com/watch?v=ExcRbA7fy_A&list=PL4cUxeGkcC9h77dJ-QJlwGlZlTd4ecZOA&index=1
+#### Install MongoDB locally
+- mongod -> https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-ubuntu/
+- compass -> https://www.mongodb.com/try/download/compass
