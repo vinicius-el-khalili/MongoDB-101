@@ -1,4 +1,4 @@
-# MongoDB-101: Setup
+# MongoDB 101: Setup
 
 #### Install MongoDB locally
 - MongoDB -> https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-ubuntu/
