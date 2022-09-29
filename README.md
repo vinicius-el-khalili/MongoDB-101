@@ -1,1 +1,2 @@
-# MongoDB-101: Intro
+# MongoDB 101: Intro
+
