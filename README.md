@@ -1,8 +1,7 @@
-# MongoDB 101: Finding Documents
+# MongoDB 101: Sorting and limiting data
 
-- `db.<ColectionName>.find()` -> print 20 first documents
-- `it` -> iterate through 20 more documents
-- `db.<ColectionName>.find({key1:vaue1, key2:vaue2, key3:vaue3})` -> filter documents that satisfy given key-value pairs 
-![](find_method.png)
-- `db.<ColectionName>.findOne({_id:ObjectId(<IdNumber>)})` -> find document by id
-![](findOne.png)
+- `db.<CollectionName>.find({<Key>:<Value>}).count()` -> count filtered documents
+- `db.<CollectionName>.find().limit(<Int>)` -> limit output
+- `db.<CollectionName>.find().sort({<KEY>:1})` -> sort documents (-1 for inverse order)
+
+![](./FindSortLimit.png)
