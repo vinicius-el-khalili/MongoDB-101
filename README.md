@@ -1,13 +1,8 @@
-# MongoDB 101: $in/$nin
-
-- Use $in to check for documents where one of its properties has a list of possible values
+# MongoDB 101: Querying Arrays
 
 ```
-- Using $or/$nor
-db.books.find({$or:[{rating:8},{rating:9},rating:{10}]})    -> $or
-db.books.find({$nor:[{rating:8},{rating:9},rating:{10}]})   -> $nor
-```
-```
-db.books.find({ rating: {$in: [8,9,10]}})
-db.books.find({ rating: {$nin: [8,9,10]}})
+db.books.find({genre:"fantasy"})                    -> find books that contain "fantasy" in its genres
+db.books.find({genre:["fantasy"]})                  -> find books that only contain "fantasy" in its genres (exact match)
+db.books.find({genre:{$all:["fantasy","scifi"]}})   -> find books that contain "fantasy" and "scifi" in its genres
+db.books.find({"reviews.name":"luigi"})             -> nested search: find books that contain a review from luigi
 ```
