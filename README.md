@@ -1,5 +1,3 @@
-# MongoDB 101: MongoDB drivers
+# MongoDB 101: Setup Typescript for Express app
 
-- From now on we'll use Node and Express to interact with the database.
-- npm -> express, mongodb
-- -> https://www.mongodb.com/docs/drivers/node/current/
+-> https://blog.logrocket.com/how-to-set-up-node-typescript-express/
