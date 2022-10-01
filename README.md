@@ -1,4 +1,4 @@
-# MongoDB 101: In-Operator
+# MongoDB 101: $in/$nin
 
 - Use $in check for documents where one of its properties has a list of possible values
 ```
