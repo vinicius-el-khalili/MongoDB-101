@@ -1,34 +1,15 @@
-# MongoDB 101: Connecting to MongoDB
+# MongoDB 101: Cursors and Fetching Data
+
+- Class FindCursor -> https://mongodb.github.io/node-mongodb-native/4.0/classes/findcursor.html
+- Interface Document -> https://mongodb.github.io/node-mongodb-native/4.0/interfaces/document.html
 
 ```
-import { Db, MongoClient } from "mongodb";
-let dbConnection:Db;
-const connectToDB:Function = (callback:Function)=>{
-    MongoClient.connect('mongodb://localhost:27017/bookstore')
-    .then((client)=>{
-        dbConnection = client.db()
-        return callback()
-    })
-    .catch(err=>{
-        console.log(err)
-        return callback(err)
-    })
-};
-const getDB:Function=()=>dbConnection;
-export{connectToDB,getDB}
-```
-
-```
-//  DB connection @ app
-import {connectToDB,getDB} from './db'
-import { Db } from 'mongodb';
-let db:Db
-connectToDB((err:any)=>{
-  if (!err){
-    app.listen(port,()=>{
-      console.log(`⚡️[server]: Server is running at https://localhost:${port}`)
-    })
-    db = getDB()
-  }
-})
+db = getDB()
+let books: WithId<Document>[] = []
+  db.collection('books')
+  .find()                     //Collection<Document>.find(): FindCursor<WithId<Document>>
+  .sort({ author: 1})         //FindCursor<WithId<Document>>.sort(sort: Sort, direction?: SortDirection | undefined): FindCursor<WithId<Document>>
+  .forEach(book=>{            //book: WithId<Document>
+    books.push(book)
+  })
 ```
