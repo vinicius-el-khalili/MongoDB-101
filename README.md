@@ -1,9 +1,8 @@
 # MongoDB 101: Connecting to MongoDB
 
 ```
-// DB connection
-import { MongoClient } from "mongodb";
-let dbConnection:any;
+import { Db, MongoClient } from "mongodb";
+let dbConnection:Db;
 const connectToDB:Function = (callback:Function)=>{
     MongoClient.connect('mongodb://localhost:27017/bookstore')
     .then((client)=>{
@@ -22,7 +21,8 @@ export{connectToDB,getDB}
 ```
 //  DB connection @ app
 import {connectToDB,getDB} from './db'
-let db
+import { Db } from 'mongodb';
+let db:Db
 connectToDB((err:any)=>{
   if (!err){
     app.listen(port,()=>{
