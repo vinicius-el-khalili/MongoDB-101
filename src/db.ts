@@ -1,5 +1,5 @@
-import { MongoClient } from "mongodb";
-let dbConnection:any;
+import { Db, MongoClient } from "mongodb";
+let dbConnection:Db;
 const connectToDB:Function = (callback:Function)=>{
     MongoClient.connect('mongodb://localhost:27017/bookstore')
     .then((client)=>{

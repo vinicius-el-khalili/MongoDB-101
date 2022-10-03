@@ -1,7 +1,5 @@
 import express, { Express, Request, Response } from 'express';
 import dotenv from 'dotenv';
-import {connectToDB,getDB} from './db'
-import { connect } from 'http2';
 
 //  init app
 dotenv.config();
@@ -9,7 +7,9 @@ const app: Express = express();
 const port = process.env.PORT;
 
 //  DB connection
-let db
+import {connectToDB,getDB} from './db'
+import { Db } from 'mongodb';
+let db:Db
 connectToDB((err:any)=>{
   if (!err){
     app.listen(port,()=>{
