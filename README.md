@@ -1,6 +1,7 @@
 # MongoDB 101: Connecting to MongoDB
-
+-> https://www.mongodb.com/docs/drivers/node/current/fundamentals/connection/connect/
 ```
+// Connecting
 import { Db, MongoClient } from "mongodb";
 let dbConnection:Db;
 const connectToDB:Function = (callback:Function)=>{
