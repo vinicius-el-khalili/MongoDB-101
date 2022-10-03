@@ -1,9 +1,10 @@
 import { Db, MongoClient } from "mongodb";
 let dbConnection:Db;
-const connectToDB:Function = (callback:Function)=>{
-    MongoClient.connect('mongodb://localhost:27017/bookstore')
-    .then((client)=>{
-        dbConnection = client.db()
+type ConnectToDB = (callback:Function)=>void
+const connectToDB:ConnectToDB = (callback:Function)=>{             
+    MongoClient.connect('mongodb://localhost:27017/bookstore')  //MongoClient.connect(url: string): Promise<MongoClient>
+    .then((client)=>{                                           //(parameter) client: MongoClient
+        dbConnection = client.db()                              //(method) MongoClient.db(dbName?: string | undefined, options?: DbOptions | undefined): Db
         return callback()
     })
     .catch(err=>{
@@ -11,5 +12,6 @@ const connectToDB:Function = (callback:Function)=>{
         return callback(err)
     })
 };
-const getDB:Function=()=>dbConnection;
+type GetDB = () => Db
+const getDB:GetDB=()=>dbConnection;
 export{connectToDB,getDB}
