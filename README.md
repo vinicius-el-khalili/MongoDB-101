@@ -1,4 +1,4 @@
-# MongoDB 101: Table of Contents
+# MongoDB 101: Table of Content
 
 [01. Intro](https://github.com/vinicius-el-khalili/MongoDB-101/tree/01-Intro)
 
