@@ -2,14 +2,21 @@ import express, { Express, Request, Response } from 'express';
 import dotenv from 'dotenv';
 import {connectToDB,getDB} from './db'
 import { Db, WithId, Document, ObjectId } from 'mongodb';
+import { request } from 'http';
 
 //  init app
 dotenv.config();
 const app: Express = express();
 const port = process.env.PORT;
 
+//  middleware
+
+app.use(express.json())     //var e.json: (options?: bodyParser.OptionsJson | undefined) => createServer.NextHandleFunction
+// Returns middleware that only parses json and only looks at requests where the Content-Type header matches the type option.
+
+
 //  DB connection
-let db:Db                   //The Db class is a class that represents a MongoDB Database.
+let db:Db                   //--  The Db class is a class that represents a MongoDB Database.
 connectToDB((err:any)=>{    //ConnectToDB(callback: Function): void
   if (!err){
     app.listen(port,()=>{
@@ -53,4 +60,17 @@ app.get('/books/:id',(req:Request,res:Response)=>{
   } else {
     res.status(500).json({error:"Invalid id"})
   }
+})
+
+app.post('/books',(req:Request,res:Response)=>{
+  const book = req.body     // json document
+  db.collection('books')
+  .insertOne(book)
+  .then(document=>{
+    console.log('book added')
+    res.status(201).json(document)
+  })
+  .catch(err=>{
+    res.status(500).json({error:"Could not create a new document"})
+  })
 })
