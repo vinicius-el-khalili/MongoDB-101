@@ -1,10 +1,14 @@
-import { Db, MongoClient } from "mongodb";
+import { Db, MongoClient } from "mongodb"
+import dotenv from 'dotenv'
+dotenv.config()
+const mongo_access_string:string = process.env.MONGODB! 
+console.log(mongo_access_string)
 let dbConnection:Db;
 type ConnectToDB = (callback:Function)=>void
 const connectToDB:ConnectToDB = (callback:Function)=>{             
-    MongoClient.connect('mongodb://localhost:27017/bookstore')  //MongoClient.connect(url: string): Promise<MongoClient>
-    .then((client)=>{                                           //(parameter) client: MongoClient
-        dbConnection = client.db()                              //(method) MongoClient.db(dbName?: string | undefined, options?: DbOptions | undefined): Db
+    MongoClient.connect(mongo_access_string)
+    .then((client)=>{
+        dbConnection = client.db()
         return callback()
     })
     .catch(err=>{

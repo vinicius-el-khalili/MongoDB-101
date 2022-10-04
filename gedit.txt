@@ -1,0 +1,3 @@
+# Ubuntu 20.04 -> Edit and aplly predefined terminal aliases
+gedit ~/.bashrc # edit aliases
+. ~/.bashrc	# use aliases

@@ -28,11 +28,8 @@ connectToDB((err:any)=>{    //ConnectToDB(callback: Function): void
 
 //  routes
 app.get('/books', (req: Request, res: Response) => {
-  //  Pagination
   const page = req.query.p || 0
   const booksPerPage:number = 3
-
-  //  
   let books: WithId<Document>[] = []
   db.collection('books')
   .find()
