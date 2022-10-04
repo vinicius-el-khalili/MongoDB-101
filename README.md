@@ -1,28 +1,29 @@
-# MongoDB 101: POST Requests
+# MongoDB 101: DELETE Requests
 
-#### Handle POST request
+#### Handle DELETE request
 
 ```
-app.post('/books',(req:Request,res:Response)=>{
-  const book = req.body     // json document
-  db.collection('books')
-  .insertOne(book)
-  .then(document=>{
-    console.log('book added')
-    res.status(201).json(document)
-  })
-  .catch(err=>{
-    res.status(500).json({error:"Could not create a new document"})
-  })
+app.delete('/books/:id',(req:Request,res:Response)=>{
+  if (ObjectId.isValid(req.params.id)){
+    db.collection('books')                            
+    .deleteOne({_id: new ObjectId(req.params.id)})      
+    .then(result=>{                                      
+      console.log('book deleted: ',req.params.id)
+      res.status(200)                                 
+      .json(result)                                      
+    })                                          
+    .catch(err=>{
+      console.log(err)
+      res.status(500).json({error:"Could not delete the document"})
+    })
+  } else {
+    res.status(500).json({error:"Invalid id"})
+  }
 })
 ```
 
 #### Check
 
-- POST
+- DELETE
 
-![](screenshots/post.png)
-
-- GET
-
-![](screenshots/get.png)
+![](screenshots/delete.png)
