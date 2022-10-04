@@ -25,13 +25,21 @@ connectToDB((err:any)=>{    //ConnectToDB(callback: Function): void
     db = getDB()
   }
 })
+
 //  routes
 app.get('/books', (req: Request, res: Response) => {
+  //  Pagination
+  const page = req.query.p || 0
+  const booksPerPage:number = 3
+
+  //  
   let books: WithId<Document>[] = []
   db.collection('books')
-  .find()                     //Collection<Document>.find(): FindCursor<WithId<Document>>
-  .sort({ author: 1})         //FindCursor<WithId<Document>>.sort(sort: Sort, direction?: SortDirection | undefined): FindCursor<WithId<Document>>
-  .forEach(book=>{            //book: WithId<Document>
+  .find()
+  .sort({ author: 1})
+  .skip(booksPerPage*Number(page))
+  .limit(booksPerPage)
+  .forEach(book=>{
     books.push(book)
   })
   .then(()=>{
@@ -47,12 +55,12 @@ app.get('/books', (req: Request, res: Response) => {
 
 app.get('/books/:id',(req:Request,res:Response)=>{
   if (ObjectId.isValid(req.params.id)){
-    db.collection('books')                            
-    .findOne({_id: new ObjectId(req.params.id)})      
-    .then(doc=>{                                      
-      res.status(200)                                 
-      .json(doc)                                      
-    })                                          
+    db.collection('books')
+    .findOne({_id: new ObjectId(req.params.id)})
+    .then(doc=>{
+      res.status(200)
+      .json(doc)
+    })
     .catch(err=>{
       console.log(err)
       res.status(500).json({error:"Could not fetch documents"})
