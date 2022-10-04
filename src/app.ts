@@ -2,8 +2,7 @@ import express, { Express, Request, Response } from 'express';
 import dotenv from 'dotenv';
 import {connectToDB,getDB} from './db'
 import { Db, WithId, Document, ObjectId } from 'mongodb';
-import { request } from 'http';
-
+import morgan from 'morgan'
 //  init app
 dotenv.config();
 const app: Express = express();
@@ -14,6 +13,7 @@ const port = process.env.PORT;
 app.use(express.json())     //var e.json: (options?: bodyParser.OptionsJson | undefined) => createServer.NextHandleFunction
 // Returns middleware that only parses json and only looks at requests where the Content-Type header matches the type option.
 
+app.use(morgan('dev'))
 
 //  DB connection
 let db:Db                   //--  The Db class is a class that represents a MongoDB Database.
@@ -87,6 +87,27 @@ app.delete('/books/:id',(req:Request,res:Response)=>{
     .catch(err=>{
       console.log(err)
       res.status(500).json({error:"Could not delete the document"})
+    })
+  } else {
+    res.status(500).json({error:"Invalid id"})
+  }
+})
+
+app.patch('/books/:id',(req:Request,res:Response)=>{
+  const updates = req.body
+  if (ObjectId.isValid(req.params.id)){
+    db.collection('books')                            
+    .updateOne({_id: new ObjectId(req.params.id)},{
+      $set:updates
+    })      
+    .then(result=>{                                      
+      console.log('book updated: ',req.params.id)
+      res.status(200)                                 
+      .json(result)                                      
+    })                                          
+    .catch(err=>{
+      console.log(err)
+      res.status(500).json({error:"Could not update the document"})
     })
   } else {
     res.status(500).json({error:"Invalid id"})

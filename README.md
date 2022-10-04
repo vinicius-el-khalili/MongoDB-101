@@ -1,20 +1,23 @@
 # MongoDB 101: DELETE Requests
 
-#### Handle DELETE request
+#### Handle PATCH request
 
 ```
-app.delete('/books/:id',(req:Request,res:Response)=>{
+app.patch('/books/:id',(req:Request,res:Response)=>{
+  const updates = req.body
   if (ObjectId.isValid(req.params.id)){
     db.collection('books')                            
-    .deleteOne({_id: new ObjectId(req.params.id)})      
+    .updateOne({_id: new ObjectId(req.params.id)},{
+      $set:updates
+    })      
     .then(result=>{                                      
-      console.log('book deleted: ',req.params.id)
+      console.log('book updated: ',req.params.id)
       res.status(200)                                 
       .json(result)                                      
     })                                          
     .catch(err=>{
       console.log(err)
-      res.status(500).json({error:"Could not delete the document"})
+      res.status(500).json({error:"Could not update the document"})
     })
   } else {
     res.status(500).json({error:"Invalid id"})
@@ -24,6 +27,13 @@ app.delete('/books/:id',(req:Request,res:Response)=>{
 
 #### Check
 
-- DELETE
+- Pre-patch
 
-![](screenshots/delete.png)
+![](screenshots/pre-patch.png)
+
+- Patch
+
+![](screenshots/patch.png)
+
+- Post-patch
+![](screenshots/post-patch.png)
